@@ -156,13 +156,6 @@ h1 strong {
 /*============================================================================================*/
 /* Audio Select */
 /*============================================================================================*/
-#audio-select {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 #audio-select .inner {
   margin: 0 auto 20px;
   width: 350px;
