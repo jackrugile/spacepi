@@ -852,12 +852,12 @@ var SpacePi = function () {
     update: function (s) {
       // pulse toggling and tracking
       if (this.pulseToggle) {
-        this.pulse += 2;
+        this.pulse += 2 * self.dt;
         if (this.pulse >= this.pulseMax) {
           this.pulseToggle = false;
         }
       } else {
-        this.pulse -= 2;
+        this.pulse -= 2 * self.dt;
         if (this.pulse <= this.pulseMin) {
           this.pulseToggle = true;
         }
@@ -1005,16 +1005,16 @@ var SpacePi = function () {
       this.p2.x += Math.cos(this.angle) * speed * self.dt;
       this.p1.y += Math.sin(this.angle) * speed * self.dt;
       this.p2.y += Math.sin(this.angle) * speed * self.dt;
-      this.speed += self.base.radius / self.base.goal / 100;
+      this.speed += (self.base.radius / self.base.goal / 100) * self.dt;
 
       // pulse toggling and tracking
       if (this.pulseToggle) {
-        this.pulse += 2;
+        this.pulse += 2 * self.dt;
         if (this.pulse >= this.pulseMax) {
           this.pulseToggle = false;
         }
       } else {
-        this.pulse -= 2;
+        this.pulse -= 2 * self.dt;
         if (this.pulse <= this.pulseMin) {
           this.pulseToggle = true;
         }
@@ -1141,7 +1141,7 @@ var SpacePi = function () {
     update: function (i) {
       // fade in
       if (this.alpha < 1) {
-        this.alpha += 0.05;
+        this.alpha += 0.05 * self.dt;
       }
 
       // update the xScale to create spinning effect
@@ -1152,9 +1152,9 @@ var SpacePi = function () {
       }
 
       if (this.xScaleGrow) {
-        this.xScale += 0.05;
+        this.xScale += 0.05 * self.dt;
       } else {
-        this.xScale -= 0.05;
+        this.xScale -= 0.05 * self.dt;
       }
 
       // if the coin has not been collected yet
@@ -1303,11 +1303,11 @@ var SpacePi = function () {
     update: function (i) {
       // fade in
       if (this.alpha < 1) {
-        this.alpha += 0.05;
+        this.alpha += 0.05 * self.dt;
       }
 
       if (this.angle < 360) {
-        this.angle += 5;
+        this.angle += 5 * self.dt;
       } else {
         this.angle = 0;
       }
@@ -1628,7 +1628,7 @@ var SpacePi = function () {
       this.x = self.cw / 2 + Math.sin(self.dToR(this.angle)) * this.orbitRadius;
       this.y = self.ch / 2 + Math.cos(self.dToR(this.angle)) * this.orbitRadius;
       this.angle +=
-        0.01 + this.angleSpeed * (self.base.radius / self.base.goal);
+        0.01 + this.angleSpeed * (self.base.radius / self.base.goal) * self.dt;
 
       if (this.angle >= 360) {
         this.angle = 0;
@@ -2600,7 +2600,7 @@ var SpacePi = function () {
     }
 
     // increase level tick count
-    self.levelStats.ticks++;
+    self.levelStats.ticks += self.dt;
 
     // Array length debugging
     //console.log('Orbs: ' + self.orbs.length);
@@ -2623,6 +2623,6 @@ $(window).load(function () {
       });
       var sp = new SpacePi();
       sp.initGame();
-    }, 3000);
+    }, 1500);
   });
 });
